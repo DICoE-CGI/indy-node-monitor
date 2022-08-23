@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: grafana-grafana-config-monitoring
+  name: grafana-config-monitoring
+data:
+  GF_SECURITY_ADMIN_PASSWORD: "cgiditi"
+  GF_USERS_ALLOW_SIGN_UP: "false"
+  INFLUX_DB_FLUX_TOKEN: "My5uP3rS3cRetT0k3n"

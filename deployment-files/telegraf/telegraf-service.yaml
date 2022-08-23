@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: telegraf
+  name: telegraf
+spec:
+  ports:
+    - name: "9273"
+      port: 9273
+      targetPort: 9273
+  selector:
+    io.kompose.service: telegraf
+status:
+  loadBalancer: {}

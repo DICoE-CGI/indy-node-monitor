@@ -1,17 +1,10 @@
 version: '3'
 
-volumes:
-  prometheus_data: {}
-  grafana_data: {}
-
-networks:
-  node-monitor-net:
-
 services:
   indy-node-monitor:
-    build:
-      context: ./fetch-validator-status
-      dockerfile: ./Dockerfile
+    # build:
+    #   context: ./fetch-validator-status
+    #   dockerfile: ./Dockerfile
     image: indy-node-monitor
     volumes:
       # Mounts for indy-node-monitor configuration
@@ -27,14 +20,14 @@ services:
   
   telegraf:
     # Full tag list: https://hub.docker.com/r/library/telegraf/tags/
-    build:
-      context: ./images/telegraf/
-      dockerfile: ./${TYPE}/Dockerfile
-      args:
-        TELEGRAF_TAG: ${TELEGRAF_TAG}
-    image: telegraf
+    # build:
+    #   context: ./images/telegraf/
+    #   dockerfile: ./${TYPE}/Dockerfile
+    #   args:
+    #     TELEGRAF_TAG: ${TELEGRAF_TAG}
+    image: telegraf:latest
     env_file:
-      - ${TELEGRAF_ENV}
+      - ./telegraf/.env-telegraf
     # Telegraf requires network access to:
     # - InfluxDB
     # - Indy-Node-Monitor
@@ -56,11 +49,11 @@ services:
   influxdb:
     # Full tag list: https://hub.docker.com/r/library/influxdb/tags/
     build:
-      context: ./images/influxdb/
-      dockerfile: ./${TYPE}/Dockerfile
-      args:
-        INFLUXDB_TAG: ${INFLUXDB_TAG}
-    image: influxdb
+      # context: ./images/influxdb/
+      # dockerfile: ./latest/Dockerfile
+      # args:
+      #   INFLUXDB_TAG: ${INFLUXDB_TAG}
+    image: influxdb:1.8
     volumes:
       # Mount for influxdb data directory
       - ./influxdb/data:/var/lib/influxdb
@@ -120,12 +113,12 @@ services:
     #     condition: on-failure
 
   grafana:
-    build:
-      context: ./images/grafana/
-      dockerfile: ./Dockerfile
-      args:
-        GRAFANA_TAG: ${GRAFANA_TAG}
-    image: grafana
+    # build:
+    #   context: ./images/grafana/
+    #   dockerfile: ./Dockerfile
+    #   args:
+    #     GRAFANA_TAG: ${GRAFANA_TAG}
+    image: grafana:latest
     depends_on:
       - prometheus
       - influxdb
@@ -135,7 +128,7 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
     env_file:
-      - ${GRAFANA_ENV}
+      - ./grafana/config.monitoring
     networks:
       - node-monitor-net
     links:
@@ -148,3 +141,10 @@ services:
     #       - node.role==manager
     #   restart_policy:
     #     condition: on-failure
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+networks:
+  node-monitor-net:

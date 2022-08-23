@@ -1,7 +1,7 @@
 {
   "sbn": {
-    "name": "Sovrin Builder Net",
-    "genesisUrl": "https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_builder_genesis"
+    "name": "Local von-network",
+    "genesisUrl": "http://host.docker.internal:9000/genesis"
   },
   "ssn": {
     "name": "Sovrin Staging Net",
