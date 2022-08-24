@@ -27,7 +27,7 @@ spec:
             - --branch
             - monitoring-stack
             - --
-            - https://github.com/ConnorBarnes88/indy-node-monitor.git
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
             - /monitoring-stack
           volumeMounts:
             - mountPath: /monitoring-stack

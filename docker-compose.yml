@@ -2,9 +2,9 @@ version: '3'
 
 services:
   indy-node-monitor:
-    # build:
-    #   context: ./fetch-validator-status
-    #   dockerfile: ./Dockerfile
+    build:
+      context: ./fetch-validator-status
+      dockerfile: ./Dockerfile
     image: indy-node-monitor
     volumes:
       # Mounts for indy-node-monitor configuration
@@ -48,7 +48,7 @@ services:
   
   influxdb:
     # Full tag list: https://hub.docker.com/r/library/influxdb/tags/
-    build:
+    # build:
       # context: ./images/influxdb/
       # dockerfile: ./latest/Dockerfile
       # args:
@@ -118,7 +118,7 @@ services:
     #   dockerfile: ./Dockerfile
     #   args:
     #     GRAFANA_TAG: ${GRAFANA_TAG}
-    image: grafana:latest
+    image: grafana/grafana:latest
     depends_on:
       - prometheus
       - influxdb

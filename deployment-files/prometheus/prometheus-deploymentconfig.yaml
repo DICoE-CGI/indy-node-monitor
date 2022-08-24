@@ -27,21 +27,12 @@ spec:
             - --branch
             - monitoring-stack
             - --
-            - https://github.com/ConnorBarnes88/indy-node-monitor.git
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
             - /monitoring-stack
           volumeMounts:
             - mountPath: /monitoring-stack
               name: monitoring-stack-repo
       containers:
-        # - command: ["/bin/sh", "-c", "--"]
-        #   args:
-        #     - echo "PWD" $(pwd);
-        #       echo "User:" $(whoami);
-        #       cp -r /monitoring-stack-repo/prometheus/. /etc/prometheus;
-        #       /bin/prometheus --config.file=/etc/prometheus/prometheus.yml\;
-        #       --storage.tsdb.path=/prometheus\;
-        #       --web.console.libraries=/usr/share/prometheus/console_libraries\;
-        #       --web.console.templates=/usr/share/prometheus/consoles;
         - args:
             - --config.file=/monitoring-stack-repo/prometheus/prometheus.yml
             - --storage.tsdb.path=/prometheus
@@ -55,15 +46,10 @@ spec:
           volumeMounts:
             - mountPath: /monitoring-stack-repo
               name: monitoring-stack-repo
-            # - mountPath: /etc/prometheus/
-            #   name: prometheus-claim0
             - mountPath: /prometheus
               name: prometheus-data
       restartPolicy: Always
       volumes:
-        # - name: prometheus-claim0
-        #   persistentVolumeClaim:
-        #     claimName: prometheus-claim0
         - name: monitoring-stack-repo
         - name: prometheus-data
           persistentVolumeClaim:
@@ -79,10 +65,3 @@ spec:
           kind: ImageStreamTag
           name: prometheus:latest
       type: ImageChange
-# status:
-#   availableReplicas: 0
-#   latestVersion: 0
-#   observedGeneration: 0
-#   replicas: 0
-#   unavailableReplicas: 0
-#   updatedReplicas: 0

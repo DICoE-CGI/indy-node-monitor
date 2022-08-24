@@ -1,7 +1,7 @@
 {
   "sbn": {
-    "name": "Local von-network",
-    "genesisUrl": "http://host.docker.internal:9000/genesis"
+    "name": "CANDy network",
+    "genesisUrl": "https://raw.githubusercontent.com/ICCS-ISAC/dtrust-reconu/main/CANdy/dev/pool_transactions_genesis"
   },
   "ssn": {
     "name": "Sovrin Staging Net",

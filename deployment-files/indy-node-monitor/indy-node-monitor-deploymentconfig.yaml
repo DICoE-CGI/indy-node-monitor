@@ -19,6 +19,7 @@ spec:
         io.kompose.network/node-monitor-net: "true"
         io.kompose.service: indy-node-monitor
     spec:
+      serviceAccountName: im-scc-sa
       initContainers:
         - name: git-cloner
           image: alpine/git
@@ -27,7 +28,7 @@ spec:
             - --branch
             - monitoring-stack
             - --
-            - https://github.com/ConnorBarnes88/indy-node-monitor.git
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
             - /monitoring-stack
           volumeMounts:
             - mountPath: /monitoring-stack
@@ -39,35 +40,20 @@ spec:
               echo "User:" $(whoami);
               cp -r /monitoring-stack-repo/fetch-validator-status/plugins/. /home/indy/plugins/;
               python main.py --web --verbose;
-          # - args:
-          #     - --web
-          #     - --verbose
           image: " "
           name: indy-node-monitor
           ports:
             - containerPort: 8080
           resources: {}
           volumeMounts:
-            # - mountPath: /home/indy/plugins/
-            #   name: indy-node-monitor-claim0
-            # - mountPath: /home/indy/conf/
-            #   name: indy-node-monitor-claim1
-            # - mountPath: /home/indy/logs/
-            #   name: indy-node-monitor-claim2
             - mountPath: /monitoring-stack-repo
               name: monitoring-stack-repo
       restartPolicy: Always
       volumes:
         - name: monitoring-stack-repo
-        # - name: indy-node-monitor-claim0
-        #   persistentVolumeClaim:
-        #     claimName: indy-node-monitor-claim0
-        # - name: indy-node-monitor-claim1
-        #   persistentVolumeClaim:
-        #     claimName: indy-node-monitor-claim1
-        # - name: indy-node-monitor-claim2
-        #   persistentVolumeClaim:
-        #     claimName: indy-node-monitor-claim2
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
   test: false
   triggers:
     - type: ConfigChange
@@ -79,10 +65,3 @@ spec:
           kind: ImageStreamTag
           name: indy-node-monitor:latest
       type: ImageChange
-# status:
-#   availableReplicas: 0
-#   latestVersion: 0
-#   observedGeneration: 0
-#   replicas: 0
-#   unavailableReplicas: 0
-#   updatedReplicas: 0

@@ -27,7 +27,7 @@ spec:
             - --branch
             - monitoring-stack
             - --
-            - https://github.com/ConnorBarnes88/indy-node-monitor.git
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
             - /monitoring-stack
           volumeMounts:
             - mountPath: /monitoring-stack
@@ -55,7 +55,7 @@ spec:
             - echo "Initializing the copy process";
               echo "PWD:" $(pwd);
               echo "User:" $(whoami);
-              cp -r /monitoring-stack-repo/grafana/provisioning/ /etc/grafana/provisioning/;
+              cp -r /monitoring-stack-repo/grafana/provisioning/. /etc/grafana/provisioning/;
               /run.sh;
           name: grafana
           ports:
