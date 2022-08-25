@@ -30,6 +30,7 @@ scrape_configs:
 
   - job_name: "tick"
     scrape_interval: 1m
+    scheme: https
     static_configs:
       - targets:
           [
@@ -42,6 +43,7 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
+    scheme: https
       - targets:
           [
             "prometheus-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
