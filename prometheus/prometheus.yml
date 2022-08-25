@@ -21,9 +21,8 @@ alerting:
     - scheme: http
       static_configs:
         - targets:
-          [
-            "https://alertmanager-9093-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io"
-          ]
+            - "alertmanager-9093-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io"
+
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
 scrape_configs:
