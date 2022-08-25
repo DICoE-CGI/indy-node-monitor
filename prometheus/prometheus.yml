@@ -18,10 +18,10 @@ rule_files:
 # alert
 alerting:
   alertmanagers:
-    - scheme: http
+    - scheme: https
       static_configs:
         - targets:
-            - "https://alertmanager-9093-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io"
+            - "alertmanager-9093-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -33,7 +33,7 @@ scrape_configs:
     static_configs:
       - targets:
           [
-            "https://telegraf-9273-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
+            "telegraf-9273-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
           ]
 
   - job_name: "prometheus"
@@ -44,5 +44,5 @@ scrape_configs:
     static_configs:
       - targets:
           [
-            "https://prometheus-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
+            "prometheus-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
           ]
