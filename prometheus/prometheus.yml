@@ -33,7 +33,7 @@ scrape_configs:
     static_configs:
       - targets:
           [
-            "https://telegraf-9273-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
+            "telegraf-9273-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
           ]
 
   - job_name: "prometheus"
