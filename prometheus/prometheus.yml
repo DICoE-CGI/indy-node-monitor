@@ -42,4 +42,7 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: ["localhost:9090"]
+      - targets:
+          [
+            "prometheus-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io",
+          ]
