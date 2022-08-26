@@ -4,8 +4,8 @@
     "genesisUrl": "https://raw.githubusercontent.com/ICCS-ISAC/dtrust-reconu/main/CANdy/dev/pool_transactions_genesis"
   },
   "ssn": {
-    "name": "Sovrin Staging Net",
-    "genesisUrl": "https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis"
+    "name": "CGI Test von-network",
+    "genesisUrl": "http://20.151.228.196:9000/genesis"
   },
   "smn": {
     "name": "Sovrin Main Net",

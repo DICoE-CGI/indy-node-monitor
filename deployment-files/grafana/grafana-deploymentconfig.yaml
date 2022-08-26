@@ -55,6 +55,7 @@ spec:
             - echo "Initializing the copy process";
               echo "PWD:" $(pwd);
               echo "User:" $(whoami);
+              grafana-cli plugins install grafana-worldmap-panel;
               cp -r /monitoring-stack-repo/grafana/provisioning/. /etc/grafana/provisioning/;
               /run.sh;
           name: grafana
