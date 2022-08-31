@@ -96,3 +96,21 @@ datasources:
     secureJsonData:
       token: ${INFLUX_DB_FLUX_TOKEN}
     readOnly: false
+
+  - name: Prometheus-Openshift
+    access: proxy
+    editable: true
+    isDefault: true
+    jsonData:
+      esVersion: 0
+      httpHeaderName1: Authorization
+      nodeGraph: {}
+      search: {}
+      serviceMap: {}
+      timeInterval: 5s
+      tlsSkipVerify: true
+      tracesToLogs: {}
+    secureJsonData:
+      httpHeaderValue1: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFTSUdSdkRfMXdkTXpSOTNBRkZ4dy1HTGNqeVhlOEpTdWRIUnJsM0pINEEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtb25pdG9yaW5nLWxvZ2dpbmctYWxlcnRpbmctdGVzdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJncmFmYW5hLXNlcnZpY2VhY2NvdW50LXRva2VuLW1wbmg4Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImdyYWZhbmEtc2VydmljZWFjY291bnQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1NzY5NTI1MS1kMDIzLTQxZDktYTM3OC1iMDk2YWM3MGI0MTEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6bW9uaXRvcmluZy1sb2dnaW5nLWFsZXJ0aW5nLXRlc3Q6Z3JhZmFuYS1zZXJ2aWNlYWNjb3VudCJ9.WGTSu6QfrPbnkQwP8hmeCtJ4xUIquscPhCg9ivUV2D88DppjDJVLRJx9zQgrAZMedEzbHTakDMGUDPwK3dbcgiwhmaD3KNS0THrqIq0_f5W_FT67vKc1IhG30w-hlYN7FHiscJ47HiHkdDKb7BV57zJqW9iUMvdbzHXNu65RdLIBojfnohMGB6KOyauwHDrIKMewjW6ZyjV5_sVOjpOMXYucZyiUh53ARjQoKg4UFb3GLXBHhYk0n94JP-qoUqQW7_McUeBYpu_PUsilAN8qK4LzodgTLgeL_w9CUGxuLNnRASLNuGHQ1NSopws3ymaVMwCjeFDYXMUQXEjUG17NQ9iy70DIhfgpa9eQKQuPcDDAXy9zd0451r9f-RwoEAIkQO1nsin-Yx-BmvsaYbXm17clhxk8epnibymjhKg3RA8e-Pgd9-wgbo3jwsPZMjnCYpNZxn-SKG7e60vVdU1axpHp0JnPeLCrj42UgUwrZIeH7EQIYF0gY9MvFS4c8WRwYyRrn8wcC4b4hbYjvHCR16coMzYnxWGRqi3hGWQE1q_om5_RxknCFeZoNjCV5A1gj432-3aktCLwSVu-9CDvKtJzV-YgOr38GwcFCNRXTy1_SKsocA6wpXPDOeaFI8oqXScP8y9s03B6K19VV_FW6ycSJezBgkwOPWG5if-8cKA
+    type: prometheus
+    url: https://thanos-querier-openshift-monitoring.apps.xkh544cb.canadacentral.aroapp.io
