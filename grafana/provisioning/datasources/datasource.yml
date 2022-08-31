@@ -100,7 +100,7 @@ datasources:
   - name: Prometheus-Openshift
     access: proxy
     editable: true
-    isDefault: true
+    isDefault: false
     jsonData:
       esVersion: 0
       httpHeaderName1: Authorization
