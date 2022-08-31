@@ -2,8 +2,8 @@ apiVersion: v1
 data:
   HOSTNAME: telegraf
   SBN_SEED: ""
-  SMN_SEED: "000000000000000000000000Trustee1"
-  SSN_SEED: ""
+  SMN_SEED: ""
+  SSN_SEED: "000000000000000000000000Trustee1"
 kind: ConfigMap
 metadata:
   creationTimestamp: null
