@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: indy-node-alertmanager
+  name: indy-node-alertmanager
+spec:
+  selector: 
+    matchLabels:
+      app: indy-node-alertmanager
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels: 
+        app: indy-node-alertmanager
+    spec:
+      serviceAccountNamer: deployer
+      initContainers:
+        - name: git-cloner
+          volumeMounts:
+            - name: monitoring-stack-repo
+              mountPath: /monitoring-stack
+          image: alpine/git
+          args:
+            - clone
+            - '--branch'
+            - monitoring-stack
+            - '--'
+            - 'https://github.com/DICoE-CGI/indy-node-monitor.git'
+            - /monitoring-stack
+      containers:
+        - name: alertmanager
+          ports:
+            - containerPort: 9093
+              protocol: TCP
+          volumeMounts:
+            - name: monitoring-stack-repo
+              mountPath: /monitoring-stack-repo
+          image: prom/alertmanager
+          args:
+            - '--config.file=/monitoring-stack-repo/alertmanager/config.yml'
+            - '--storage.path=/alertmanager'
+      serviceAccount: default
+      volumes:
+        - name: monitoring-stack-repo
+      dnsPolicy: ClusterFirst
