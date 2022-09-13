@@ -1,0 +1,69 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: telegraf
+  name: telegraf
+spec:
+  selector:
+    app: telegraf
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      initContainers:
+        - name: git-cloner
+          image: alpine/git
+          args:
+            - clone
+            - --branch
+            - monitoring-stack
+            - --
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
+            - /monitoring-stack
+          volumeMounts:
+            - mountPath: /monitoring-stack
+              name: monitoring-stack-repo
+      containers:
+        - command: ["/bin/bash", "-c", "--"]
+          args:
+            - echo "PWD" $(pwd);
+              echo "User:" $(whoami);
+              cat /entrypoint.sh;
+              /entrypoint.sh telegraf --config /monitoring-stack-repo/telegraf/telegraf.conf;
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: HOSTNAME
+                  name: telegraf-env-telegraf
+            - name: SBN_SEED
+              valueFrom:
+                configMapKeyRef:
+                  key: SBN_SEED
+                  name: telegraf-env-telegraf
+            - name: SMN_SEED
+              valueFrom:
+                configMapKeyRef:
+                  key: SMN_SEED
+                  name: telegraf-env-telegraf
+            - name: SSN_SEED
+              valueFrom:
+                configMapKeyRef:
+                  key: SSN_SEED
+                  name: telegraf-env-telegraf
+          image: telegraf:latest
+          name: telegraf
+          ports:
+            - containerPort: 9273
+          volumeMounts:
+            - mountPath: /monitoring-stack-repo
+              name: monitoring-stack-repo
+      restartPolicy: Always
+      volumes:
+        - name: monitoring-stack-repo
+  dnsPolicy: ClusterFirst

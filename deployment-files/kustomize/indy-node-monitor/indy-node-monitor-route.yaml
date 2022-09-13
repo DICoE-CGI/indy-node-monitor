@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: indy-node-monitor
+  namespace: indy-node-monitoring-new
+spec:
+  host: indy-node-monitor.apps.xkh544cb.canadacentral.aroapp.io
+  to:
+    kind: Service
+    name: indy-node-monitor
+    weight: 100
+  port:
+    targetPort: '8080'
+  tls:
+    termination: edge
+  wildcardPolicy: None

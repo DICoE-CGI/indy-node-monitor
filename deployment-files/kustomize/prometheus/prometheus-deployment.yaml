@@ -1,0 +1,51 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: indy-node-prometheus
+  name: indy-node-prometheus
+spec:
+  selector:
+    app: indy-node-prometheus
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels:
+        app: indy-node-prometheus
+    spec:
+      initContainers:
+        - name: git-cloner
+          image: alpine/git
+          args:
+            - clone
+            - --branch
+            - monitoring-stack
+            - --
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
+            - /monitoring-stack
+          volumeMounts:
+            - mountPath: /monitoring-stack
+              name: monitoring-stack-repo
+      containers:
+        - args:
+            - --config.file=/monitoring-stack-repo/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --web.console.libraries=/usr/share/prometheus/console_libraries
+            - --web.console.templates=/usr/share/prometheus/consoles
+          image: prom/prometheus
+          name: prometheus
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - mountPath: /monitoring-stack-repo
+              name: monitoring-stack-repo
+            - mountPath: /prometheus
+              name: prometheus-data
+      volumes:
+        - name: monitoring-stack-repo
+        - name: prometheus-data
+          persistentVolumeClaim:
+            claimName: prometheus-data
+  dnsPolicy: ClusterFirst

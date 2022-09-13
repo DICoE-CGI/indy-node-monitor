@@ -1,0 +1,52 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: indy-node-monitor
+  name: indy-node-monitor
+spec:
+ selector:
+    matchLabels:
+      app: indy-node-monitor  
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels:
+        app: indy-node-monitor
+    spec:
+      serviceAccountName: im-scc-sa
+      initContainers:
+        - name: git-cloner
+          image: alpine/git
+          args:
+            - clone
+            - --branch
+            - monitoring-stack
+            - --
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
+            - /monitoring-stack
+          volumeMounts:
+            - mountPath: /monitoring-stack
+              name: monitoring-stack-repo
+      containers:
+        - command: ["/bin/bash", "-c", "--"]
+          args:
+            - echo "PWD" $(pwd);
+              echo "User:" $(whoami);
+              cp -r /monitoring-stack-repo/fetch-validator-status/plugins/. /home/indy/plugins/;
+              python main.py --web --verbose;
+          image: pradeepcan2020/indy-node-monitor:latest
+          name: indy-node-monitor
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /monitoring-stack-repo
+              name: monitoring-stack-repo
+      volumes:
+        - name: monitoring-stack-repo
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+  dnsPolicy: ClusterFirst

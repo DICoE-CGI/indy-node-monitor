@@ -1,0 +1,75 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: monitoring-grafana 
+  name: monitoring-grafana
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-grafana
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels:
+        app: monitoring-grafana
+    spec:
+      serviceAccountName: deployer
+      initContainers:
+        - name: git-cloner
+          image: alpine/git
+          args:
+            - clone
+            - --branch
+            - monitoring-stack
+            - --
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
+            - /monitoring-stack
+          volumeMounts:
+            - mountPath: /monitoring-stack
+              name: monitoring-stack-repo
+      containers:
+        - env:
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: GF_SECURITY_ADMIN_PASSWORD
+                  name: grafana-config-monitoring
+            - name: GF_USERS_ALLOW_SIGN_UP
+              valueFrom:
+                configMapKeyRef:
+                  key: GF_USERS_ALLOW_SIGN_UP
+                  name: grafana-config-monitoring
+            - name: INFLUX_DB_FLUX_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: INFLUX_DB_FLUX_TOKEN
+                  name: grafana-config-monitoring
+          image: grafana/grafana:latest
+          command: ["/bin/bash", "-c", "--"]
+          args:
+            - echo "Initializing the copy process";
+              echo "PWD:" $(pwd);
+              echo "User:" $(whoami);
+              grafana-cli plugins install grafana-worldmap-panel;
+              cp -r /monitoring-stack-repo/grafana/provisioning/. /etc/grafana/provisioning/;
+              /run.sh;
+          name: grafana
+          ports:
+            - containerPort: 3000
+          securityContext:
+            runAsUser: 472
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-data
+            - mountPath: /monitoring-stack-repo
+              name: monitoring-stack-repo
+      restartPolicy: Always
+      volumes:
+        - name: grafana-data
+          persistentVolumeClaim:
+            claimName: grafana-data
+        - name: monitoring-stack-repo
+  dnsPolicy: ClusterFirst

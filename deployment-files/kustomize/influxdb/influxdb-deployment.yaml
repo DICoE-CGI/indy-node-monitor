@@ -1,0 +1,56 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  replicas: 1
+  revisionHistoryLimit: 10
+  restartPolicy: Always
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      initContainers:
+        - name: git-cloner
+          image: alpine/git
+          args:
+            - clone
+            - --branch
+            - monitoring-stack
+            - --
+            - https://github.com/DICoE-CGI/indy-node-monitor.git
+            - /monitoring-stack
+          volumeMounts:
+            - mountPath: /monitoring-stack
+              name: monitoring-stack-repo
+      containers:
+        - command: ["/bin/bash", "-c", "--"]
+          args:
+            - echo "PWD" $(pwd);
+              echo "User:" $(whoami);
+              cp -r /monitoring-stack-repo/influxdb/config/. /etc/influxdb/;
+              /entrypoint.sh influxd;
+          image: " "
+          name: influxdb:1.8
+          ports:
+            - containerPort: 8086
+            - containerPort: 8082
+            - containerPort: 8089
+              protocol: UDP
+          volumeMounts:
+            - mountPath: /var/lib/influxdb
+              name: influxdb-data
+            - mountPath: /monitoring-stack-repo
+              name: monitoring-stack-repo
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data
+        - name: monitoring-stack-repo
+  dnsPolicy: ClusterFirst

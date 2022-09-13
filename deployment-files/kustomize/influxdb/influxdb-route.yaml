@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: influxdb
+  namespace: indy-node-monitoring-new
+spec:
+  host: influxdb.apps.xkh544cb.canadacentral.aroapp.io
+  to:
+    kind: Service
+    name: influxdb
+    weight: 100
+  port:
+    targetPort: '8086'
+  tls:
+    termination: edge
+  wildcardPolicy: None

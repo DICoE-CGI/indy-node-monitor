@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: alertmanager
+  namespace: indy-node-monitoring-new
+spec:
+  host: alertmanager-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io
+  to:
+    kind: Service
+    name: indy-node-alertmanager
+    weight: 100
+  port:
+    targetPort: '9093'
+  tls:
+    termination: edge
+  wildcardPolicy: None

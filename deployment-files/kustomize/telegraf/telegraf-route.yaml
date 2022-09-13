@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: telegraf
+  namespace: indy-node-monitoring-new
+spec:
+  host: telegraf.apps.xkh544cb.canadacentral.aroapp.io
+  to:
+    kind: Service
+    name: telegraf
+    weight: 100
+  port:
+    targetPort: '9273'
+  tls:
+    termination: edge
+  wildcardPolicy: None
