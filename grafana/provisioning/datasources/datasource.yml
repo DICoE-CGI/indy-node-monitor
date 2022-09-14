@@ -59,7 +59,7 @@ datasources:
     typeLogoUrl: public/app/plugins/datasource/influxdb/img/influxdb_logo.svg
     access: proxy
     orgId: 1
-    url: https://influxdb-8086-indy-node-monitoring.apps.xkh544cb.canadacentral.aroapp.io
+    url: https://influxdb.apps.xkh544cb.canadacentral.aroapp.io
     password: ""
     user: ""
     database: telegraf
