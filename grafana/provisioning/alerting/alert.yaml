@@ -5,15 +5,15 @@ groups:
   # <int> organization ID, default = 1
   - orgId: 1
     # <string, required> name of the rule group
-    name: test_alert
+    name: openshift_alerts
     # <string, required> name of the folder the rule group will be stored in
-    folder: test_alert
+    folder: openshift_alerts
     # <duration, required> interval that the rule group should evaluated at
     interval: 60s
     # <list, required> list of rules that are part of the rule group
     rules:
       # <string, required> unique identifier for the rule
-      - uid: 
+      - uid: my_id_1
         # <string, required> title of the rule that will be displayed in the UI
         title: my_first_rule
         # <string, required> which query should be used for the condition
