@@ -28,8 +28,8 @@ policies:
     #        When a route is muted it will not send any notifications, but
     #        otherwise acts normally (including ending the route-matching process
     #        if the `continue` option is not set)
-    mute_time_intervals:
-      - abc
+    # mute_time_intervals:
+    #   - abc
     # <duration> How long to initially wait to send a notification for a group
     #            of alerts. Allows to collect more initial alerts for the same group.
     #            (Usually ~0s to few minutes), default = 30s
