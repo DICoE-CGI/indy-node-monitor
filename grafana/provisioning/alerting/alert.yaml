@@ -7,8 +7,7 @@ groups:
     rules:
       # Alert for Node Down
       - uid: indy_alert_1
-        id: 1
-        title: Node Down
+        title: Node_Down
         condition: B
         data:
           - refId: A
@@ -62,7 +61,7 @@ groups:
           summary: One of the nodes is not reachable
       - uid: indy_alert_2
         id: 2
-        title: Node Status Errors
+        title: Node_Status_Errors
         condition: B
         data:
           - refId: A
