@@ -59,7 +59,11 @@ groups:
         for: 60s
         annotations:
           summary: One of the nodes is not reachable
-      # Alert for Node Status Error
+  - orgId: 1
+    name: Indy-Alerts-Provisioned
+    folder: Indy-Alerts-Provisioned
+    interval: 60s
+    rules:
       - uid: indy_alert_2
         title: Node Status Errors
         condition: B
