@@ -17,7 +17,6 @@ groups:
         condition: B
         data:
           - refId: A
-            queryType: ""
             relativeTimeRange:
               from: 600
               to: 0
@@ -32,7 +31,6 @@ groups:
               range: true
               refId: A
           - refId: B
-            queryType: ""
             relativeTimeRange:
               from: 0
               to: 0
