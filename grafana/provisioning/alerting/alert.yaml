@@ -8,7 +8,7 @@ groups:
     rules:
       # Alert for Node Down
       - uid: indy_alert_1
-        title: Node Down
+        title: Node_Down
         condition: B
         data:
           - refId: A
@@ -60,14 +60,8 @@ groups:
         for: 60s
         annotations:
           summary: One of the nodes is not reachable
-  - orgId: 1
-    id: 2
-    name: Indy-Alerts-Provisioned
-    folder: Indy-Alerts-Provisioned
-    interval: 60s
-    rules:
       - uid: indy_alert_2
-        title: Node Status Errors
+        title: Node_Status_Errors
         condition: B
         data:
           - refId: A
