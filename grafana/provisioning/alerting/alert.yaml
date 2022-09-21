@@ -1,14 +1,13 @@
 apiVersion: 1
 groups:
   - orgId: 1
-    id: 1
     name: Indy-Alerts-Provisioned
     folder: Indy-Alerts-Provisioned
     interval: 60s
     rules:
       # Alert for Node Down
       - uid: indy_alert_1
-        title: Node_Down
+        title: Node Down
         condition: B
         data:
           - refId: A
