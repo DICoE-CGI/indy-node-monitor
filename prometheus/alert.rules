@@ -1,5 +1,5 @@
 groups:
-- name: example
+- name: prometheus-alerts
   rules:
 
   # Alert for any instance that is unreachable for >2 minutes.
@@ -20,3 +20,12 @@ groups:
     annotations:
       summary: "Instance {{ $labels.instance }} under high load"
       description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
+
+    - alert: Reachable nodes less than 5
+      expr: node_response_result_data_Pool_info_Reachable_nodes_count{job="tick", network="CANDy network"} < 5
+      for: 1m
+      labels:
+        severity: 0
+      annotations:
+        summary: "The reachable nodes count is less than 5"
+        description: "One of the nodes is not reachable"
