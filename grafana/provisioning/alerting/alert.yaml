@@ -22,9 +22,6 @@ groups:
         #                  evaluation - should be obtained trough the API
         data:
           - refId: A
-              relativeTimeRange:
-                from: 600
-                to: 0
               datasourceUid: PBFA97CFB590B2093
               model:
                 editorMode: code
@@ -36,9 +33,6 @@ groups:
                 range: true
                 refId: A
             - refId: B
-              relativeTimeRange:
-                from: 0
-                to: 0
               datasourceUid: "-100"
               model:
                 conditions:
