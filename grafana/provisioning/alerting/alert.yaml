@@ -60,7 +60,6 @@ groups:
         annotations:
           summary: One of the nodes is not reachable
       - uid: indy_alert_2
-        id: 2
         title: Node_Status_Errors
         condition: B
         data:
