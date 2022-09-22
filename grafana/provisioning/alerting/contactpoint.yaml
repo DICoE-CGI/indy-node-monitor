@@ -5,15 +5,18 @@ contactPoints:
   # <int> organization ID, default = 1
   - orgId: 1
     # <string, required> name of the contact point
-    name: cp_1
+    name: email_slack
     receivers:
       # <string, required> unique identifier for the receiver
-      - uid: first_uid
+      - uid: email_admin
         type: email
         settings:
-          # <string, required>
           addresses: pradeep.prakasam@cgi.com
-          # <bool>
           singleEmail: false
+      - uid: slack_channel
+        type: slack
+        settings:
+          url: https://hooks.slack.com/services/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
+
 
         
