@@ -16,7 +16,7 @@ contactPoints:
       - uid: slack_channel
         type: slack
         settings:
-          url: https://hooks.slack.com/services/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
+          url: https://hooks.slack.com/services/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
 
 
         
