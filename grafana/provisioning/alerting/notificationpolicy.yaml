@@ -5,7 +5,7 @@ policies:
   # <int> organization ID, default = 1
   - orgId: 1
     # <string> name of the contact point that should be used for this route
-    receiver: cp_1
+    receiver: email_slack
     # <list> The labels by which incoming alerts are grouped together. For example,
     #        multiple alerts coming in for cluster=A and alertname=LatencyHigh would
     #        be batched into a single group.
@@ -21,7 +21,7 @@ policies:
     # <list> a list of matchers that an alert has to fulfill to match the node
     matchers:
       - alertname = Watchdog
-      - severity =~ "warning|critical"
+      - severity =~ "0"
     # <list> Times when the route should be muted. These must match the name of a
     #        mute time interval.
     #        Additionally, the root node cannot have any mute times.

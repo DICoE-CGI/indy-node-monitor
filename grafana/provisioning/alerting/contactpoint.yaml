@@ -1,9 +1,5 @@
 apiVersion: 1
-deleteContactPoints:
-  # <int> organization ID, default = 1
-  - orgId: 1
-    # <string, required> unique identifier for the receiver
-    uid: first_uid
+
 # List of contact points to import or update
 contactPoints:
   # <int> organization ID, default = 1
