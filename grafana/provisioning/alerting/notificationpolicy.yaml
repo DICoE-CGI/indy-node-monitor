@@ -1,4 +1,7 @@
-# apiVersion: 1
+apiVersion: 1
+
+resetPolicies:
+  - 1
 
 # # List of notification policies
 # policies:
