@@ -17,10 +17,7 @@ contactPoints:
         settings:
           addresses: pradeep.prakasam@cgi.com
           singleEmail: false
-      - uid: slack_channel
-        type: slack
-        settings:
-          url: https://hooks.slack.com/services/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
+
 
 
         
