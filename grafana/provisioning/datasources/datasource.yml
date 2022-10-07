@@ -22,7 +22,7 @@ datasources:
     # <int> org id. will default to orgId 1 if not specified
     orgId: 1
     # <string> url
-    url: https://indy-node-prometheus.apps.xkh544cb.canadacentral.aroapp.io
+    url: http://indy-node-prometheus:9090
     # <string> database password, if used
     password:
     # <string> database user, if used
@@ -59,7 +59,7 @@ datasources:
     typeLogoUrl: public/app/plugins/datasource/influxdb/img/influxdb_logo.svg
     access: proxy
     orgId: 1
-    url: https://influxdb.apps.xkh544cb.canadacentral.aroapp.io
+    url: http://influxdb:8086
     password: ""
     user: ""
     database: telegraf
@@ -82,7 +82,7 @@ datasources:
     typeLogoUrl: public/app/plugins/datasource/influxdb/img/influxdb_logo.svg
     access: proxy
     orgId: 1
-    url: https://influxdb.apps.xkh544cb.canadacentral.aroapp.io
+    url: http://influxdb:8086
     password: ""
     user: ""
     database:
